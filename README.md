@@ -8,7 +8,7 @@ I will update the guide as more features and capabilities are added. The guide i
 The demo guide flows over the next products and capabilities:
 
 K8s with vSphere:
-1. Interaction with Kubectl API to the Supervisor Cluster
+1. Interaction with the Supervisor Cluster via Kubectl API
 2. Native POD with persistence volume demo Console and vCenter
 3. Configuring Qutas and policies to Sup Namespaces
 
