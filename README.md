@@ -8,21 +8,22 @@ I will update the guide as more features and capabilities are added. The guide i
 The demo guide flows over the next products and capabilities:
 
 K8s with vSphere:
-1.	Interaction with Kubectl API to the Supervisor Cluster
-2.	Native POD with persistence volume demo Console and vCenter
-3.	Configuring Qutas and policies to Sup Namespaces
+1. Interaction with Kubectl API to the Supervisor Cluster
+2. Native POD with persistence volume demo Console and vCenter
+3. Configuring Qutas and policies to Sup Namespaces
 
 Tanzu Kubernetes Grid on vSphere 7.0:
-4.	Declaration file of the cluster – parameters, base image etc.
-5.	Get objects of Managedcluster, Virtualimages, Virtualmachines etc.
-6.	Show the TKG in the vCenter side
-7.	Resizing the cluster by changing the YAML file
-8.	Kill a worker to initiate the reconciliation of the object
+
+1. Declaration file of the cluster – parameters, base image etc.
+2. Get objects of Managedcluster, Virtualimages, Virtualmachines etc.
+3. Show the TKG in the vCenter side
+4. Resizing the cluster by changing the YAML file
+5. Kill a worker to initiate the reconciliation of the object
 
 Tanzu Mission Control:
-1.	Attach a TKG cluster
-2.	Going over Operational views
-3.	Creating an AWS Cluster
-4.	Going over AWS EC2 cluster LCM Capabilities – resize a clsuter
-5.	Policies across those clusters
-6.	Conformance test results
+1. Attach a TKG cluster
+2. Going over Operational views
+3. Creating an AWS Cluster
+4. Going over AWS EC2 cluster LCM Capabilities – resize a clsuter
+5. Policies across those clusters
+6. Conformance test results
