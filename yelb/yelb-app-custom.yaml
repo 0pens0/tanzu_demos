@@ -1,0 +1,22 @@
+# App middleware Deployment Spec
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: yelb-appserver
+  namespace: yelb-app
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: yelb-appserver
+        tier: middletier
+        # Note the secgroup Label, it will be used to match firewall in the ruleset
+        secgroup: app-tier
+    spec:
+      containers:
+      - name: yelb-appserver
+        image: gonatienza/yelb-appserver-custom
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 4567

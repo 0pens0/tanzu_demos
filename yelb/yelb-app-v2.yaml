@@ -1,0 +1,149 @@
+# Node: this should work on an out of the box minikube setup 
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-server
+  labels:
+    app: redis-server
+    tier: cache
+spec:
+  type: ClusterIP
+  ports:
+  - port: 6379
+  selector:
+    app: redis-server
+    tier: cache
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: yelb-db
+  labels:
+    app: yelb-db
+    tier: backenddb
+spec:
+  type: ClusterIP
+  ports:
+  - port: 5432
+  selector:
+    app: yelb-db
+    tier: backenddb
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: yelb-appserver
+  labels:
+    app: yelb-appserver
+    tier: middletier
+spec:
+  type: ClusterIP
+  ports:
+  - port: 4567
+  selector:
+    app: yelb-appserver
+    tier: middletier
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: yelb-ui
+  labels:
+    app: yelb-ui
+    tier: frontend
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+    # nodePort: 32777 <- if not specified, the system will generate a nodePort value
+  selector:
+    app: yelb-ui
+    tier: frontend
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: yelb-ui
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: yelb-ui
+        tier: frontend
+    spec:
+      containers:
+      - name: yelb-ui
+        image:  harbor.lab.local/yelb-app/yelb-ui
+        ports:
+        - containerPort: 80
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: redis-server
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: redis-server
+        tier: cache
+    spec:
+      containers:
+      - name: redis-server
+        image: harbor.lab.local/yelb-app/redis
+        ports:
+        - containerPort: 6379
+        volumeMounts:
+        - name: redis-slave-data
+          mountPath: /data
+      volumes:
+      - name: redis-slave-data
+        persistentVolumeClaim:
+          claimName: redis-slave-claim
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: yelb-db
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: yelb-db
+        tier: backenddb
+    spec:
+      containers:
+      - name: yelb-db
+        image:  harbor.lab.local/yelb-app/yelb-db
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: db-slave-data
+          mountPath: /data
+      volumes:
+      - name: db-slave-data
+        persistentVolumeClaim:
+          claimName: db-slave-claim
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: yelb-appserver
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: yelb-appserver
+        tier: middletier
+    spec:
+      containers:
+      - name: yelb-appserver
+        image:  harbor.lab.local/yelb-app/yelb-appserver
+        ports:
+        - containerPort: 4567

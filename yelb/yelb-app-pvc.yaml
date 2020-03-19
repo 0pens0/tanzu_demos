@@ -1,0 +1,27 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: redis-slave-claim
+  annotations:
+    volume.beta.kubernetes.io/storage-class: thin-disk
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: db-slave-claim
+  annotations:
+    volume.beta.kubernetes.io/storage-class: thin-disk
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+
