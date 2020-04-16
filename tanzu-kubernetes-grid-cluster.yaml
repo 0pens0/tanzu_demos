@@ -1,20 +1,20 @@
-apiVersion: gcm.vmware.com/v1alpha1
-kind: ManagedCluster
+apiVersion: run.tanzu.vmware.com/v1alpha1
+kind: TanzuKubernetesCluster
 metadata:
-  name: cluster-1
-  namespace: tanzu-kubernetes-grid
+  name: dev-cluster
+  namespace: grid-clusters
 spec:
   topology:
     controlPlane:
       count: 1
-      class: guaranteed-xsmall # vmclass to be used for master(s)
-      storageClass: project-pacific-storage
+      class: best-effort-xsmall
+      storageClass: k8s-storage-policy
     workers:
-      count: 2
-      class: guaranteed-xsmall # vmclass to be used for workers(s)
-      storageClass: project-pacific-storage
+      count: 1
+      class: best-effort-xsmall
+      storageClass: k8s-storage-policy
   distribution:
-    version: v1.15.5+vmware.1-tkg.1.85123d8
+    version: v1.16
   settings:
     network:
       cni:
