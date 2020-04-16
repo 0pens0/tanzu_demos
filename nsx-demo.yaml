@@ -4,6 +4,9 @@ metadata:
   name: nsx-demo
 spec:
   replicas: 3
+  selector:
+    matchLabels:
+      app: nsxdemo
   template:
     metadata:
       labels:
