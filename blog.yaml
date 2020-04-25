@@ -3,7 +3,7 @@ apiVersion: v1
 metadata:
   name: blog-content
   annotations:
-    volume.beta.kubernetes.io/storage-class: 'project-pacific-storage'
+    volume.beta.kubernetes.io/storage-class: 'k8s-storage-policy'
 spec:
   accessModes:
     - ReadWriteOnce
