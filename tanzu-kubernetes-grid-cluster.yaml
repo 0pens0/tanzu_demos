@@ -2,7 +2,6 @@ apiVersion: run.tanzu.vmware.com/v1alpha1
 kind: TanzuKubernetesCluster
 metadata:
   name: dev-cluster
-  namespace: grid-clusters
 spec:
   topology:
     controlPlane:
@@ -14,12 +13,4 @@ spec:
       class: best-effort-xsmall
       storageClass: k8s-storage-policy
   distribution:
-    version: v1.16
-  settings:
-    network:
-      cni:
-        name: calico
-      services:
-        cidrBlocks: ["198.51.100.0/12"]
-      pods:
-        cidrBlocks: ["192.0.2.0/16"]
+    version: v1.18
