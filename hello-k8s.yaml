@@ -26,6 +26,6 @@ spec:
     spec:
       containers:
       - name: hello-kubernetes
-        image: paulbouwer/hello-kubernetes:1.5
+        image: harbor.tanzuworld.com/openso/hello-kubernetes
         ports:
         - containerPort: 8080

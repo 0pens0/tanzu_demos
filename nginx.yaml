@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: docker.io/library/nginx:latest
+        image: harbor.tanzuworld.com/openso/nginx
         ports:
         - containerPort: 80
 ---

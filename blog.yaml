@@ -44,7 +44,7 @@ spec:
     spec:
       containers:
       - name: blog
-        image: docker.io/library/ghost
+        image: harbor.tanzuworld.com/openso/blog
         imagePullPolicy: Always
         ports:
         - containerPort: 2368
