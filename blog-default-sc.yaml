@@ -1,0 +1,58 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: blog-content
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    name: blog
+  name: blog
+spec:
+  ports:
+    - port: 80
+      targetPort: 2368
+  selector:
+    app: blog
+  type: LoadBalancer
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: blog
+  labels:
+    app: blog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blog
+  template:
+    metadata:
+      labels:
+        app: blog
+    spec:
+      containers:
+      - name: blog
+        image: harbor.tanzuworld.com/openso/blog
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 2368
+        env:
+        - name: url
+          value: http://my-blog.pacific.local
+        volumeMounts:
+        - mountPath: /var/lib/ghost/content
+          name: content
+      volumes:
+      - name: content
+        persistentVolumeClaim:
+          claimName: blog-content
