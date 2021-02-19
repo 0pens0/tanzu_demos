@@ -10,4 +10,4 @@ export VSPHERE_CONTROL_PLANE_DISK_GIB="250"
 export VSPHERE_WORKER_DISK_GIB="250"
 
 
-tkg create cluster te-services-large -p prod -k v1.19.1 --vsphere-controlplane-endpoint-ip 172.23.19.120 -c 3 -w 3 --enable-cluster-options autoscaler
+tkg create cluster te-services-large -p prod -k v1.19.1 --vsphere-controlplane-endpoint-ip 172.23.19.120 -c 3 -w 3 --enable-cluster-options autoscaler -v 10
