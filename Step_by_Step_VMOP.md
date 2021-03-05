@@ -33,10 +33,48 @@ spec:
   networkInterfaces:
   - networkName: ""
     networkType: nsx-t
-  className: xsmall
+  className: test-class
   imageName: ubuntu-20.04-vmservice-v1alpha1.20210210
   powerState: poweredOn
   storageClass: k8s-storage-policy # should be a storage policy associated with the Supervisor namespace
+
+
+
+vm-lb-svc.yaml
+
+apiVersion: vmoperator.vmware.com/v1alpha1
+kind: VirtualMachine
+metadata:
+  labels:
+    my-selector: ubuntu-ssh
+  name: vmsvc-ubuntu-test-lb
+  namespace: test-ns
+spec:
+  networkInterfaces:
+  - networkName: ""
+    networkType: nsx-t
+  className: test-class
+  imageName: ubuntu-20.04-vmservice-v1alpha1.20210210
+  powerState: poweredOn
+  storageClass: k8s-storage-policy # should be a storage policy associated with the Supervisor namespace
+---
+
+apiVersion: vmoperator.vmware.com/v1alpha1
+kind: VirtualMachineService
+metadata:
+  name: ubuntu-ssh
+  namespace: test-ns
+spec:
+  ports:
+  - name: ssh
+    port: 22
+    protocol: TCP
+    targetPort: 22
+  selector:
+    my-selector: ubuntu-ssh
+  type: LoadBalancer
+
+
 
   
 
