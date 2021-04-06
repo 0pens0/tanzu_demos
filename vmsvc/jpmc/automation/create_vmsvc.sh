@@ -1,12 +1,13 @@
+export KUBECTL_VSPHERE_PASSWORD=YY#eXpa7EJ.P8oEz6=CV
 echo "Login to the supervisor cluster"
 kubectl vsphere login --server https://10.193.132.129/ -u 'administrator@vsphere.local' --insecure-skip-tls-verify
 echo "Create a new Test Namespace"
 kubectl create ns test
 echo "Add test-class machineclass and vm-svc content library to the Namespace configuration"
 curl --location --request PATCH 'https://sc3-vc-01.haas-232.pez.pivotal.io/api/vcenter/namespaces/instances/test' \
---header 'vmware-api-session-id: f0258b5a1b4060e758ad662a400fbcf2' \
+--header 'vmware-api-session-id: f2dea39318a5c9cd0882aff0ccfcd2b2' \
 --header 'Content-Type: application/json' \
---header 'Cookie: vmware-api-session-id=f0258b5a1b4060e758ad662a400fbcf2' \
+--header 'Cookie: vmware-api-session-id=f2dea39318a5c9cd0882aff0ccfcd2b2' \
 --data-raw '{
     "cluster": "domain-c8",
     "stats": {

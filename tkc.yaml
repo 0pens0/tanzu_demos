@@ -6,11 +6,11 @@ spec:
   topology:
     controlPlane:
       count: 1
-      class: best-effort-xsmall
+      class: test-class
       storageClass: k8s-storage-policy
     workers:
       count: 1
-      class: best-effort-xsmall
+      class: test-class
       storageClass: k8s-storage-policy
   distribution:
-    version: v1.18
+    version: v1.19
