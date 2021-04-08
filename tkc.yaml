@@ -6,11 +6,11 @@ spec:
   topology:
     controlPlane:
       count: 1
-      class: test-class
+      class: guaranteed-large
       storageClass: k8s-storage-policy
     workers:
       count: 1
-      class: test-class
+      class: guaranteed-large
       storageClass: k8s-storage-policy
   distribution:
     version: v1.19
