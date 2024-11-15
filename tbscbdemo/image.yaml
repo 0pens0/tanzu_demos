@@ -1,0 +1,20 @@
+apiVersion: kpack.io/v1alpha1
+kind: Image
+metadata:
+  name: cbdemo
+spec:
+  build:
+    resources: {}
+  builder:
+    kind: ClusterBuilder
+    name: default
+  cacheSize: 2G
+  failedBuildHistoryLimit: 10
+  imageTaggingStrategy: BuildNumber
+  serviceAccount: default
+  source:
+    git:
+      revision: main
+      url: http://github.com/0pens0/spring-http
+  successBuildHistoryLimit: 10
+  tag: harbor.tanzuworld.com/cbdemo/spring-http

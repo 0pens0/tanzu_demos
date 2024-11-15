@@ -1,0 +1,24 @@
+id: eb4cc77c-69c7-4420-8791-981bb677b8b4
+timestamp: 2024-07-30T11:41:48.116Z
+source: VSCODE
+username: openso
+options:
+  projectName: spring-metal
+  llm: platform
+  addPrompt: true
+  idkOptions: idkModel
+  addDocuments: true
+  vectorStore: tpPGVector
+  autoConfigPGvector: true
+  runtime: tpk8s
+  apiGW: true
+  observability: true
+  fips: true
+accelerator:
+  name: genai-client
+  git:
+    url: https://github.com/0pens0/spring-metal
+    ref: main
+    commit: f67ec0efdbd1f588cb320db0d4e61b6ea46e629a
+fragments:
+  - name: tap-workload

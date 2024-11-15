@@ -1,0 +1,29 @@
+apiVersion: operator.containers.carbonblack.io/v1
+kind: CBContainersCluster
+metadata:
+  name: cbcontainers-cluster
+spec:
+  account: XYGTJ2Z3J
+  clusterName: openso:openso-eks-02
+  apiGatewaySpec:
+    host: defense-test03.cbdtest.io
+    adapter: containers
+  eventsGatewaySpec:
+    host: events.prod-cp.test.containers.carbonblack.io
+---
+apiVersion: operator.containers.carbonblack.io/v1
+kind: CBContainersHardening
+metadata:
+  name: cbcontainers-hardening
+spec:
+  version: "21-7"
+  eventsGatewaySpec:
+    host: events.prod-cp.test.containers.carbonblack.io      
+  enforcerSpec:
+      image:
+        repository: harbor.cbksworld.com/cbks/guardrails-enforcer
+        tag: "21-6-3"
+  stateReporterSpec:
+    image:
+      repository: harbor.cbksworld.com/cbks/guardrails-state-reporter
+      tag: "21-6-3"

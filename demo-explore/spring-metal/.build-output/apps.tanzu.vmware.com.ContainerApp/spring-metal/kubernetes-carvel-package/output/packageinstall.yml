@@ -1,0 +1,21 @@
+apiVersion: packaging.carvel.dev/v1alpha1
+kind: PackageInstall
+metadata:
+  annotations:
+    apps.tanzu.vmware.com/promotable: ""
+    apps.tanzu.vmware.com/promote-group: ContainerApp/spring-metal
+  creationTimestamp: null
+  name: spring-metal
+spec:
+  packageRef:
+    refName: spring-metal.apps.local
+    versionSelection:
+      constraints: 20240726.1300.31543
+  serviceAccountName: carvel-package-installer
+  values:
+  - secretRef:
+      name: spring-metal-values
+status:
+  conditions: null
+  friendlyDescription: ""
+  observedGeneration: 0
