@@ -1,0 +1,10 @@
+---
+apiVersion: buildservice.tanzu.vmware.com/v1alpha1
+kind: TanzuNetDependencyUpdater
+metadata:
+  name: dependency-updater
+  namespace: default
+spec:
+  serviceAccountName: default
+  productSlug: tbs-dependencies
+  checkEvery: 1m

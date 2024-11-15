@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cbdemo
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: cbdemo
+  template:
+    metadata:
+      labels:
+        app: cbdemo
+    spec:
+      containers:
+      - name: cbdemo
+        image: harbor.tanzuworld.com/cbdemo/spring-http:latest
+        ports:
+        - containerPort: 8080

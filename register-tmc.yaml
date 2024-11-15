@@ -5,4 +5,4 @@ metadata:
   namespace: svc-tmc-c8
 spec:
   operation: INSTALL
-  registrationLink: https://openso.tmc.cloud.vmware.com/installer?id=cbbae9173e3b71c3b26e98dd95e5e087efc74c1869eb5df9afe513de5c074165&source=registration
+  registrationLink: https://openso.tmc.cloud.vmware.com/installer?id=563406f461969e769c5b04753c0c5740e1c17a343c215073f8b19736939b155c&source=registration&type=tkgs
