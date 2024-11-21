@@ -4,7 +4,7 @@ cachetools==4.1.1
 certifi==2020.6.20
 cffi==1.14.0
 chardet==3.0.4
-cryptography==2.9.2
+cryptography==3.3.2
 fancycompleter==0.9.1
 google-auth==1.19.1
 idna==2.10
