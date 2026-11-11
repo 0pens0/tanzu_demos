@@ -1,0 +1,43 @@
+# Supervisor: ai-supervisor (vSphere cluster domain-c124)
+# Namespace tanzu-demos is a vSphere Namespace. Create it in vCenter first
+# (storage wcp-ai-nvme-policy, VM class best-effort-small, network wcp-vlan50).
+# kubectl create ns does not attach the resource pool, storage, or VM class.
+#
+# Smallest size that will boot a v1.28 control plane on this supervisor.
+# best-effort-xsmall is 2Gi and is below what this TKR needs.
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: Cluster
+metadata:
+  name: demo
+  namespace: tanzu-demos
+  labels:
+    penso.io/purpose: wcp-capability-demo
+spec:
+  clusterNetwork:
+    pods:
+      cidrBlocks:
+      - 192.168.0.0/16
+    services:
+      cidrBlocks:
+      - 10.96.0.0/12
+  topology:
+    class: tanzukubernetescluster
+    version: v1.28.15+vmware.3-fips-vkr.3
+    controlPlane:
+      replicas: 1
+    variables:
+    - name: vmClass
+      value: best-effort-small
+    - name: storageClass
+      value: wcp-ai-nvme-policy
+    workers:
+      machineDeployments:
+      - class: node-pool
+        name: md-0
+        replicas: 1
+        variables:
+          overrides:
+          - name: vmClass
+            value: best-effort-small
+          - name: storageClass
+            value: wcp-ai-nvme-policy

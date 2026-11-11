@@ -1,0 +1,55 @@
+# Browseable page. Apply this on the VKS cluster `demo`, not on the supervisor.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: web
+  namespace: default
+data:
+  index.html: |
+    <!doctype html>
+    <title>tanzu-demos</title>
+    <h1>tanzu-demos</h1>
+    <p>Pod on VKS cluster demo.</p>
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: web
+        image: nginx:1.27-alpine
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: html
+          mountPath: /usr/share/nginx/html/index.html
+          subPath: index.html
+      volumes:
+      - name: html
+        configMap:
+          name: web
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+  namespace: default
+spec:
+  type: LoadBalancer
+  selector:
+    app: web
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80

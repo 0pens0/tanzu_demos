@@ -1,0 +1,50 @@
+# VM Service demo: one Ubuntu VM and a load balancer on SSH.
+# Do not apply until imageName is a cloud-init Ubuntu VirtualMachineImage
+# in namespace tanzu-demos. This supervisor's libraries only have TKG node
+# OVAs, BOSH stemcells, and Ops Manager. None of those is a guest you can SSH to.
+# Login is key-only (vmware). Same public key as foundation-core.
+apiVersion: vmoperator.vmware.com/v1alpha2
+kind: VirtualMachine
+metadata:
+  name: ubuntu
+  namespace: tanzu-demos
+  labels:
+    app: ubuntu
+spec:
+  className: best-effort-small
+  imageName: REPLACE_WITH_UBUNTU_CLOUD_VMI
+  storageClass: wcp-ai-nvme-policy
+  powerState: PoweredOn
+  network:
+    interfaces:
+    - name: eth0
+      network:
+        kind: Network
+        apiVersion: netoperator.vmware.com/v1alpha1
+        name: wcp-vlan50
+  bootstrap:
+    cloudInit:
+      cloudConfig:
+        ssh_pwauth: false
+        users:
+        - name: vmware
+          shell: /bin/bash
+          lock_passwd: true
+          sudo: ALL=(ALL) NOPASSWD:ALL
+          ssh_authorized_keys:
+          - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINIhRt2WLvKIy/jFHDQws8K9lM2DM/q3nzgNtt04hagD orenpenso@Orens-MacBook-Pro.local
+---
+apiVersion: vmoperator.vmware.com/v1alpha2
+kind: VirtualMachineService
+metadata:
+  name: ubuntu
+  namespace: tanzu-demos
+spec:
+  type: LoadBalancer
+  selector:
+    app: ubuntu
+  ports:
+  - name: ssh
+    port: 22
+    protocol: TCP
+    targetPort: 22
